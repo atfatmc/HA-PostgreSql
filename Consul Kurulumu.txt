@@ -2,6 +2,51 @@ Consul kurulumu
 
 root (sudo su - )
     1 - echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+    
     2 - wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    
     3 - sudo apt update && sudo apt install consul
+    
+    4 - consul keygen 
+        - 0mWS5s4R4JnmslIonCMvd2318DrRiGsrsjes6hLImWA=
 
+    5 - https://www.uuidgenerator.net/
+        - 4362885c-f9c7-47b8-88be-726beba96168
+
+    6 - vim /etc/consul.d/consul.json
+        {
+         "domain": "consul",
+         "datacenter": "gib",
+         "node_name": "db01",
+         "bind_addr": "192.168.56.101",
+         "client_addr": "127.0.0.1 192.168.42.60",
+         "data_dir": "/var/lib/consul",
+         "encrypt": "0mWS5s4R4JnmslIonCMvd2318DrRiGsrsjes6hLImWA=",
+         "log_level": "INFO",
+         "log_file": "/var/log/consul/consul",
+         "server": true,
+         "bootstrap_expect": 3,
+         "ui": {
+          "enabled": true
+        },
+         "telemetry": {
+          "prefix_filter": ["+consul.raft.apply","-consul.http","+consul.http.GET"]
+        },
+         "leave_on_terminate": true,
+         "rejoin_after_leave": true,
+         "enable_local_script_checks": true,
+         "disable_update_check" : true,
+         "retry_join": ["192.168.56.101", "192.168.56.102", "192.168.56.103"],
+         "acl": {
+          "enabled": true,
+          "default_policy": "deny",
+          "enable_token_persistence": true,
+          "tokens": {
+           "default": "anonymous",
+           "agent": "4362885c-f9c7-47b8-88be-726beba96168",
+           "initial_management": "4362885c-f9c7-47b8-88be-726beba96168"
+          }
+         }
+        }
+    
+    7 - 
