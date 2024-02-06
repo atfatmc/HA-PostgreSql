@@ -38,5 +38,16 @@ root (sudo su - )
  	            export PGDATA=/pg_data/16/main
  	            export PATH=$PATH:/usr/lib/postgresql/16/bin
 
-    13 - Postgresql Kurulumu Bitti...
-    
+    13 - İşletim sistemi seviyesindeki işlemlerimizi Şimdi Kontrol Zamanı
+
+    14 - root (sudo su - )
+            env
+             CONSUL_HTTP_TOKEN_FILE=/etc/consul.d/consul_http_token # Bunu görmen lazım.
+
+         postgres (su - postgres)
+            env
+             CONSUL_HTTP_TOKEN_FILE=/etc/consul.d/consul_http_token
+             PGDATA=/pg_data/16/main
+             PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/lib/postgresql/16/bin # Bunları görmen lazım.
+             
+    15 - Postgresql Kurulumu Bitti...
