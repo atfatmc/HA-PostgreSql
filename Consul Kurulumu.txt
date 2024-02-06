@@ -73,4 +73,15 @@ root (sudo su - )
     12 - ## Consul ü her node da aktif ediyoruz.
         systemctl enable consul
         systemctl start consul
+        systemctl status consul
+
+    13 -  vim /etc/profile.d/consul-autocomplete.sh
+            export 
+ 	        complete -C /usr/bin/consul consul
+    
+    14 - chmod 0644 /etc/profile.d/consul-autocomplete.sh
+
+    15 - http://192.168.42.60:8500
+        ## Ekranları görebilmek için Token ile login ol
+        - 4362885c-f9c7-47b8-88be-726beba96168
         
