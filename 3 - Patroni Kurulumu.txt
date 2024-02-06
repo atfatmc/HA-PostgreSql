@@ -19,10 +19,10 @@ postgres (su - postgres)
 
     3 -  postgres (sudo su - postgres)
             vim /var/lib/postgresql/.bash_profile
- 	            export PGDATA=/pg_data/16/main                      ---> PG kurulumunda eklemiştik
- 	            export PATH=$PATH:/usr/lib/postgresql/16/bin        ---> PG kurulumunda eklemiştik
+                export PGDATA=/pg_data/16/main                      ---> PG kurulumunda eklemiştik
+                export PATH=$PATH:/usr/lib/postgresql/16/bin        ---> PG kurulumunda eklemiştik
                 export PATH=/var/lib/postgresql/.pypgenv/bin:$PATH  ---> Bunu ekle
-
+                
 root (sudo su - )
 
     1 - ## site üzerinden strong bir şifre üretiyoruz.
