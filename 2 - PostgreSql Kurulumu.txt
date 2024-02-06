@@ -16,12 +16,15 @@ root (sudo su - )
 
     5 - apt install postgresql-common
     
-    6 - vim /etc/postgresql-common/createcluster.conf
-        create_main_cluster = false
+    6 - ## conf dosyasındaki create_main_cluster alanını false çekiyoruz.
+        vim /etc/postgresql-common/createcluster.conf
+            create_main_cluster = false
 
-    7 - apt install postgresql-16
+    7 - ## Postgresql 16 kurulumunu yapıyoruz.
+        apt install postgresql-16
 
-    8 - pg_lsclusters
+    8 - ## Cluster olmadığını görmek için
+        pg_lsclusters 
 
     9 -  mkdir -p /pg_data/14/main
          chown -R postgres: /pg_data
