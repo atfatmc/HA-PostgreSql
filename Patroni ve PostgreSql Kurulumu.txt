@@ -1,0 +1,31 @@
+Patroni ve PostgreSql Kurulumu
+
+(## db01, db02, db03 Makinalarına bağlan)
+root (sudo su - )
+    1 - # Charset TR için işlemleri yap ve her sanalda komutları çalıştır.
+        localectl list-locales
+        vim /etc/locale.gen
+ 	        tr_TR.UTF-8 UTF-8 ----> açık değilse # kaldır ve kaydet ardından aşağıdaki komutu çalıştır.
+        locale-gen
+
+    2 - wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor > /usr/share/keyrings/pgdg-archive-keyring.gpg
+    
+    3 - echo "deb [signed-by=/usr/share/keyrings/pgdg-archive-keyring.gpg] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+
+    4 - apt update
+
+    5 - apt install postgresql-common
+    
+    6 - vim /etc/postgresql-common/createcluster.conf
+        create_main_cluster = false
+
+    7 - apt install postgresql-16
+
+    8 - pg_lsclusters
+
+    9 -  mkdir -p /pg_data/14/main
+         chown -R postgres: /pg_data
+         chmod 700 -R /pg_data
+
+    10 - 
+    
