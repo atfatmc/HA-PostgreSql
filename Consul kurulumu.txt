@@ -92,3 +92,5 @@ root (sudo su - )
             consul monitor
             http://192.168.42.60:8500
 
+    15 - Consul Kurulumu Bitti....
+
