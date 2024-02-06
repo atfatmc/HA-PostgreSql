@@ -1,0 +1,5 @@
+Patroni Kurulumu
+
+(## db01, db02, db03 Makinalarına bağlan)
+root (sudo su - )
+    1 - 

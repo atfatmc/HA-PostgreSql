@@ -1,4 +1,4 @@
-Patroni ve PostgreSql Kurulumu
+PostgreSql Kurulumu
 
 (## db01, db02, db03 Makinalarına bağlan)
 root (sudo su - )
@@ -23,12 +23,20 @@ root (sudo su - )
     7 - ## Postgresql 16 kurulumunu yapıyoruz.
         apt install postgresql-16
 
-    8 - ## Cluster olmadığını görmek için
+    8 - systemctl stop postgresql.service
+        systemctl disable postgresql.service
+
+    9 - ## Cluster olmadığını görmek için
         pg_lsclusters 
 
-    9 -  mkdir -p /pg_data/14/main
+    10 - mkdir -p /pg_data/16/main
          chown -R postgres: /pg_data
          chmod 700 -R /pg_data
 
-    10 - 
+    12 -  postgres (sudo su - postgres)
+            vim /var/lib/postgresql/.bash_profile
+ 	            export PGDATA=/pg_data/16/main
+ 	            export PATH=$PATH:/usr/lib/postgresql/16/bin
+
+    13 - Postgresql Kurulumu Bitti...
     
