@@ -169,6 +169,12 @@ root (sudo su - )
         chmod  700 /etc/patroni
         chmod -R 600 /etc/patroni/*
 
+    7 - systemctl daemon-reload
+        systemctl enable patroni.service
+        systemctl start patroni.service
+
+    8 - Patroni Kurulumu Bitti...
+
 
 
 
