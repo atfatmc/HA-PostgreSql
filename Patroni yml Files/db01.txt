@@ -1,0 +1,95 @@
+name: "db01"
+namespace: "/postgres/"
+scope: "pg16main"
+log:
+  level: INFO
+  dir: /var/log/patroni
+bootstrap:
+  dcs:
+    ttl: 30
+    loop_wait: 10
+    retry_timeout: 10
+    maximum_lag_on_failover: 1048576
+    postgresql:
+      use_pg_rewind: true
+      use_slots: true
+      remove_data_directory_on_rewind_failure: true
+      remove_data_directory_on_diverged_timelines: true
+      parameters:
+        archive_command: '/bin/true'
+        archive_mode: "on"
+        autovacuum_analyze_scale_factor: 0.001
+        autovacuum_analyze_threshold: 1000
+        autovacuum_vacuum_scale_factor: 0.002
+        autovacuum_vacuum_threshold: 3000
+        autovacuum_work_mem : '128MB'
+        lc_messages: 'C'
+        log_autovacuum_min_duration: '0'
+        log_checkpoints: 'on'
+        log_filename: 'postgresql-%a.log'
+        log_line_prefix: '< time=%m app=%a host=%h user=%u db=%d pid=%p line=%l trx=%x> '
+        log_lock_waits: on
+        log_min_duration_statement : '100ms'
+        log_rotation_size: '0'
+        log_statement: ddl
+        log_temp_files: '0'
+        log_truncate_on_rotation: 'on'
+        logging_collector: 'on'
+        log_directory: log
+        password_encryption : 'scram-sha-256'
+        shared_preload_libraries: pg_stat_statements
+        wal_compression: "on"
+        wal_log_hints: "on"
+        wal_level: logical
+      pg_hba:
+        - local all             postgres                             peer
+        - host  all             all             127.0.0.1/32         scram-sha-256
+        - host  replication     standby         127.0.0.1/32         scram-sha-256
+        - host  replication     standby         192.168.56.101/32    scram-sha-256
+        - host  replication     standby         192.168.56.102/32    scram-sha-256
+        - host  replication     standby         192.168.56.103/32    scram-sha-256
+        - host  postgres        standby         127.0.0.1/32         scram-sha-256
+        - host  postgres        standby         192.168.56.101/32    scram-sha-256
+        - host  postgres        standby         192.168.56.102/32    scram-sha-256
+        - host  postgres        standby         192.168.56.103/32    scram-sha-256
+        - host  all             postgres        192.168.56.101/32    scram-sha-256
+        - host  all             postgres        192.168.56.102/32    scram-sha-256
+        - host  all             postgres        192.168.56.103/32    scram-sha-256
+        - host  all             +dba            0.0.0.0/0            scram-sha-256
+  users:
+    standby:
+      password: qJafxxkwNaVYfassxykG                      --------> bir önceki aşamadaki sitede oluşturulan strong şifreyi yaz
+      options:
+        - replication
+        - login
+    dba:
+      options:
+        - nologin
+consul:
+  host: 127.0.0.1:8500
+  token: 4362885c-f9c7-47b8-88be-726beba96168             --------> consul.json filedaki token ile aynı olmalı
+  dc: gib
+  register_service: true
+postgresql:
+  authentication:
+    superuser:
+      username: postgres
+      password: vBSeVxaPAwGq9Y4rppqZ                      --------> bir önceki aşamadaki sitede farklı bir şifre oluştur ve yaz
+    replication:
+      username: standby
+      password: qJafxxkwNaVYfassxykG                      --------> bir önceki aşamadaki sitede oluşturulan strong şifreyi yaz
+  connect_address: "192.168.56.101:5432"
+  data_dir: /pg_data/16/main
+  config_dir: /pg_data/16/main
+  bin_dir: /usr/lib/postgresql/16/bin
+  listen: "0.0.0.0:5432"
+  use_unix_socket: true
+  pgpass: /var/lib/postgresql/.pgpass.patroni
+restapi:
+  connect_address: 192.168.56.101:8009
+  listen: 0.0.0.0:8009
+tags:
+  nofailover: false
+  noloadbalance: false
+  clonefrom: false
+  nosync: false
