@@ -27,7 +27,7 @@ postgres (su - postgres)
 root (sudo su - )
 
     1 - vim /etc/profile.d/patroni.sh
-            export PATRONICTL_CONFIGURATION_FILE=/etc/patroni/patroni.yml
+            export PATRONI_CONFIGURATION_FILE=/etc/patroni/patroni.yml
 
     2 - vim /etc/systemd/system/patroni.service
             [Unit]
@@ -41,11 +41,11 @@ root (sudo su - )
             User=postgres
             Group=postgres
 
-            Environment="PATRONICTL_CONFIGURATION_FILE=/etc/patroni/patroni.yml"
+            Environment="PATRONI_CONFIGURATION_FILE=/etc/patroni/patroni.yml"
 
             EnvironmentFile=-/etc/patroni/env.conf
 
-            ExecStart=/var/lib/postgresql/.pypgenv/bin/patroni ${PATRONICTL_CONFIGURATION_FILE}
+            ExecStart=/var/lib/postgresql/.pypgenv/bin/patroni ${PATRONI_CONFIGURATION_FILE}
             ExecReload=/bin/kill -s HUP $MAINPID
             KillMode=process
             TimeoutSec=30
