@@ -13,22 +13,56 @@ postgres (su - postgres)
         chmod 700 ~/.pypgenv
         python3 -m venv ~/.pypgenv
 
-    2 - pip3 install --upgrade pip setuptools
+    2 - export PATH=/var/lib/postgresql/.pypgenv/bin:$PATH
+
+    3 - pip3 install --upgrade pip setuptools
         pip3 install --upgrade psycopg
         pip3 install patroni[consul]
 
-    3 -  postgres (sudo su - postgres)
-            vim /var/lib/postgresql/.bash_profile
-                export PGDATA=/pg_data/16/main                      ---> PG kurulumunda eklemiştik
-                export PATH=$PATH:/usr/lib/postgresql/16/bin        ---> PG kurulumunda eklemiştik
-                export PATH=/var/lib/postgresql/.pypgenv/bin:$PATH  ---> Bunu ekle
-                
+    4 - vim /var/lib/postgresql/.bash_profile
+            export PGDATA=/pg_data/16/main                      ---> PG kurulumunda eklemiştik
+            export PATH=$PATH:/usr/lib/postgresql/16/bin        ---> PG kurulumunda eklemiştik
+            export PATH=/var/lib/postgresql/.pypgenv/bin:$PATH  ---> Bunu ekle
+
 root (sudo su - )
 
-    1 - ## site üzerinden strong bir şifre üretiyoruz.
+    1 - vim /etc/profile.d/patroni.sh
+            export PATRONICTL_CONFIGURATION_FILE=/etc/patroni/patroni.yml
+
+    2 - vim /etc/systemd/system/patroni.service
+            [Unit]
+            Description=Runners to orchestrate a high-availability PostgreSQL
+            After=network.target
+            ConditionPathExists=/etc/patroni/patroni.yml
+
+            [Service]
+            Type=simple
+
+            User=postgres
+            Group=postgres
+
+            Environment="PATRONICTL_CONFIGURATION_FILE=/etc/patroni/patroni.yml"
+
+            EnvironmentFile=-/etc/patroni/env.conf
+
+            ExecStart=/var/lib/postgresql/.pypgenv/bin/patroni ${PATRONICTL_CONFIGURATION_FILE}
+            ExecReload=/bin/kill -s HUP $MAINPID
+            KillMode=process
+            TimeoutSec=30
+            Restart=on
+            LimitNOFILE=262144
+            OOMScoreAdjust=-1000
+
+            [Install]
+            WantedBy=multi-user.target
+
+    3 - mkdir /etc/patroni
+        touch /etc/patroni/env.conf
+
+    4 - ## site üzerinden strong bir şifre üretiyoruz.
         https://delinea.com/resources/password-generator-it-tool
 
-    2 - vim /etc/patroni/patroni.yml
+    5 - vim /etc/patroni/patroni.yml
             name: "db01"
             namespace: "/postgres/"
             scope: "pg16main"
@@ -131,11 +165,10 @@ root (sudo su - )
               clonefrom: false
               nosync: false
 
-    3 - vim /etc/profile.d/patroni.sh
-            export PATRONICTL_CONFIG_FILE=/etc/patroni/patroni.yml
+    6 - chown -R postgres: /etc/patroni
+        chmod  700 /etc/patroni
+        chmod -R 600 /etc/patroni/*
 
-    4 - vim /etc/systemd/system/patroni.service
-            ...
 
 
 
