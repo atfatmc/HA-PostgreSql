@@ -27,7 +27,7 @@ postgres (su - postgres)
 root (sudo su - )
 
     1 - vim /etc/profile.d/patroni.sh
-            export PATRONI_CONFIGURATION_FILE=/etc/patroni/patroni.yml
+            export PATRONICTL_CONFIG_FILE=/etc/patroni/patroni.yml
 
     2 - vim /etc/systemd/system/patroni.service
             ... 

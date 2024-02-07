@@ -12,7 +12,7 @@ ExecStart=/var/lib/postgresql/.pypgenv/bin/patroni ${PATRONI_CONFIGURATION_FILE}
 ExecReload=/bin/kill -s HUP $MAINPID
 KillMode=process
 TimeoutSec=30
-Restart=on
+Restart=no
 LimitNOFILE=262144
 OOMScoreAdjust=-1000
 [Install]
