@@ -148,9 +148,9 @@ root (sudo su - )
                   username: standby
                   password: qJafxxkwNaVYfassxykG                      --------> bir önceki aşamadaki sitede oluşturulan strong şifreyi yaz
               connect_address: "192.168.56.101:5432"
-              data_dir: /mnt/pg_data/14/main
-              config_dir: /mnt/pg_data/14/main
-              bin_dir: /usr/lib/postgresql/14/bin
+              data_dir: /pg_data/16/main
+              config_dir: /pg_data/16/main
+              bin_dir: /usr/lib/postgresql/16/bin
               listen: "0.0.0.0:5432"
               use_unix_socket: true
               pgpass: /var/lib/postgresql/.pgpass.patroni
