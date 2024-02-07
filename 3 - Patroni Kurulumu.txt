@@ -102,7 +102,7 @@ root (sudo su - )
                     log_temp_files: '0'
                     log_truncate_on_rotation: 'on'
                     logging_collector: 'on'
-                    log_directory: /pg_log/16/main
+                    log_directory: log
                     password_encryption : 'scram-sha-256'
                     shared_preload_libraries: pg_stat_statements
                     wal_compression: "on"
