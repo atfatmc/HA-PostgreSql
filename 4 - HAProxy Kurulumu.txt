@@ -14,12 +14,14 @@ root (sudo su - )
 
     4 - apt-get install haproxy=2.8.\*
 
-    systemctl stop haproxy
+    5 - systemctl stop haproxy
 
-    vim /etc/haproxy/haproxy.cfg
+    6 - vim /etc/haproxy/haproxy.cfg
         ...
         ## içerisine "HAProxy cfg Files" klasöründeki ilgili dosya içeriğini yaz. Her makina için ayrı ayrı
 
-    5 - systemctl enable haproxy
+    6 - systemctl enable haproxy
         systemctl start haproxy
         systemctl status haproxy
+
+    7 - http://192.168.56.101/
