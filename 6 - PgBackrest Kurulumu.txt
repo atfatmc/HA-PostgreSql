@@ -57,8 +57,9 @@ root (sudo su - )
          
             vim /etc/pgbackrest.conf
                 ...
+                ## içerisine "PgBackrest conf Files" klasöründeki ilgili dosya içeriğini yaz.
 
-    12 - (## db01, db02, db03, Makinalarına bağlan)
+    12 - (## db01 Makinasına bağlan)
         root (sudo su - )
 
             apt update
@@ -67,6 +68,31 @@ root (sudo su - )
         postgres (sudo su - postgres)
 
             vim /etc/pgbackrest.conf
-                ...    
+                ...
+                ## içerisine "PgBackrest conf Files" klasöründeki ilgili dosya içeriğini yaz. 
 
+            patronictl edit-config
+                ##  Bu komut ile config dosyalarını düzenle "archive_command:" alanına aşağıdaki gibi değiştir.
 
+                archive_command: '/usr/bin/pgbackrest --stanza=pg16main archive-push %p'
+
+    13 - (## backup01 Makinalarına bağlan)
+        postgres (sudo su - postgres )
+            pgbackrest stanza-create --stanza=pg16main
+            
+            pgbackrest info
+
+            pgbackrest --stanza=pg16main --type=full backup # Full Backup İçin
+            pgbackrest --stanza=pg16main --type=diff backup # Diff Backup İçin
+            pgbackrest --stanza=pg16main --type=incr backup # İncremental Backup İçin
+
+            # İstersen crontab a ekle istersen de manuel tetikle
+            crontab -e 
+            # Her gece 00:00 de full backup al
+            0 0 * * * /usr/bin/pgbackrest --stanza=pg16main  --type=full backup
+
+    14 - ## Restore için Aşamalar
+            (## db02 Makinasına bağlan)
+                postgres (sudo su - postgres)
+
+                pgbackrest --stanza=pg16main --log-level-console=info --type=standby restore 

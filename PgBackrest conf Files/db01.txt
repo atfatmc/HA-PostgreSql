@@ -1,0 +1,15 @@
+[global]
+repo1-host=backup01
+repo1-host-user=postgres
+log-level-console=warn
+archive-async=y
+
+[global:archive-get]
+process-max=4
+
+[global:archive-push]
+process-max=4
+
+[pg16main]
+pg1-path=/pg_data/16/main
+pg1-socket-path=/var/run/postgresql

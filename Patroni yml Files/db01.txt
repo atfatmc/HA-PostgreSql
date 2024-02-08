@@ -17,7 +17,7 @@ bootstrap:
       remove_data_directory_on_diverged_timelines: true
       parameters:
         archive_command: '/bin/true'
-        archive_mode: "on"
+        archive_mode: on
         autovacuum_analyze_scale_factor: 0.001
         autovacuum_analyze_threshold: 1000
         autovacuum_vacuum_scale_factor: 0.002
