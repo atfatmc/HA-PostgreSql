@@ -17,8 +17,8 @@ root (sudo su - )
     5 - systemctl stop haproxy
 
     6 - vim /etc/haproxy/haproxy.cfg
-        ...
-        ## içerisine "HAProxy cfg Files" klasöründeki ilgili dosya içeriğini yaz. Her makina için ayrı ayrı
+            ...
+            ## içerisine "HAProxy cfg Files" klasöründeki ilgili dosya içeriğini yaz. Her makina için ayrı ayrı
 
     6 - systemctl enable haproxy
         systemctl start haproxy

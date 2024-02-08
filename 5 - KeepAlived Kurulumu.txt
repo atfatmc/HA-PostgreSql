@@ -1,0 +1,20 @@
+KeepAlived Kurulumu
+
+(## proxy01, proxy02  Makinalarına bağlan)
+root (sudo su - )
+
+    1 - apt install keepalived -y 
+
+    2 - vim /etc/keepalived/keepalived.conf
+            ...
+            ## içerisine "HAProxy cfg Files" klasöründeki ilgili dosya içeriğini yaz. Her makina için ayrı ayrı
+
+    3 - systemctl enable keepalived
+        systemctl start keepalived
+
+    4 - ## komut ile bak virtual ip gelmiş mi eğer gelmemişse service tekrar tekrar tekrar restart et
+        ip a
+        systemctl restart keepalived
+
+    5 - ## ip a komutuyla virtual ip yi görebiliyosan artık o ip üzerinden istek alabiliyosun denemek için 
+        http://192.168.56.110

@@ -1,0 +1,21 @@
+vrrp_script chk_haproxy {
+ script "/usr/bin/killall -0 haproxy"
+ interval 2
+ weight 2
+}
+vrrp_instance VI_1 {
+ interface enp0s8 # interface adını "ip a" komutu ile al değiştir.
+ state MASTER
+ virtual_router_id 102
+ priority 100
+ virtual_ipaddress {
+  192.168.56.110
+ }
+ track_script {
+  chk_haproxy
+ }
+ authentication {
+  auth_type PASS
+  auth_pass gibadmin123
+  }
+}
