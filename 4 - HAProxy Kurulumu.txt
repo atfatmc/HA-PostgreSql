@@ -1,0 +1,24 @@
+HAProxy Kurulumu
+
+(## proxy01, proxy02  Makinalarına bağlan)
+root (sudo su - )
+
+    1 - curl https://haproxy.debian.net/bernat.debian.org.gpg \
+        | gpg --dearmor > /usr/share/keyrings/haproxy.debian.net.gpg
+
+    2 - echo deb "[signed-by=/usr/share/keyrings/haproxy.debian.net.gpg]" \
+        http://haproxy.debian.net bookworm-backports-2.8 main \
+        > /etc/apt/sources.list.d/haproxy.list
+
+    3 - apt-get update
+
+    4 - apt-get install haproxy=2.8.\*
+
+    systemctl stop haproxy
+
+    vim /etc/haproxy/haproxy.cfg
+        ...
+
+    5 - systemctl enable haproxy
+        systemctl start haproxy
+        systemctl status haproxy
