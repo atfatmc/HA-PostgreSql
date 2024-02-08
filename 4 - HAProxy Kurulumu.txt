@@ -24,4 +24,5 @@ root (sudo su - )
         systemctl start haproxy
         systemctl status haproxy
 
-    7 - http://192.168.56.101/
+    7 - http://192.168.56.105/
+        http://192.168.56.106/
