@@ -23,9 +23,9 @@ listen primary
  option httpchk OPTIONS /primary
  http-check expect status 200
  default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
-  server egmdb1 192.168.56.101:5432 maxconn 500 check port 8009
-  server egmdb2 192.168.56.102:5432 maxconn 500 check port 8009
-  server egmdb3 192.168.56.103:5432 maxconn 500 check port 8009
+  server db01 192.168.56.101:5432 maxconn 500 check port 8009
+  server db02 192.168.56.102:5432 maxconn 500 check port 8009
+  server db03 192.168.56.103:5432 maxconn 500 check port 8009
 
 listen replica
  bind *:5433
@@ -33,6 +33,6 @@ listen replica
  option httpchk OPTIONS /replica
  http-check expect status 200
  default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
-  server egmdb1 192.168.56.101:5432 maxconn 500 check port 8009
-  server egmdb2 192.168.56.102:5432 maxconn 500 check port 8009
-  server egmdb3 192.168.56.103:5432 maxconn 500 check port 8009
+  server db01 192.168.56.101:5432 maxconn 500 check port 8009
+  server db02 192.168.56.102:5432 maxconn 500 check port 8009
+  server db03 192.168.56.103:5432 maxconn 500 check port 8009
