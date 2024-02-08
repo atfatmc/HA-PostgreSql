@@ -7,7 +7,7 @@ root (sudo su - )
 
     2 - vim /etc/keepalived/keepalived.conf
             ...
-            ## içerisine "HAProxy cfg Files" klasöründeki ilgili dosya içeriğini yaz. Her makina için ayrı ayrı
+            ## içerisine "KeepAlived conf Files" klasöründeki ilgili dosya içeriğini yaz. Her makina için ayrı ayrı
 
     3 - systemctl enable keepalived
         systemctl start keepalived
