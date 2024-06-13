@@ -1,0 +1,50 @@
+{
+ "domain": "consul",
+ "datacenter": "gib",
+ "node_name": "consul01",
+ "bind_addr": "192.168.170.251",
+ "client_addr": "127.0.0.1 192.168.170.251",
+ "data_dir": "/var/lib/consul",
+ "encrypt": "noE1o6Skr8XQIGLTIPf3VxBxlFqRy2HoMm9X3dZkOSQ=",
+ "log_level": "INFO",
+ "log_file": "/var/log/consul/consul",
+ "server": true,
+ "bootstrap_expect": 3,
+ "ui_config": {
+  "enabled": true
+ },
+ "telemetry": {
+  "prefix_filter": ["+consul.raft.apply","-consul.http","+consul.http.GET"]
+ },
+ "leave_on_terminate": true,
+ "rejoin_after_leave": true,
+ "enable_local_script_checks": true,
+ "disable_update_check" : true,
+ "retry_join": ["192.168.170.251", "192.168.170.252", "192.168.170.253"],
+ "start_join": ["192.168.170.251", "192.168.170.252", "192.168.170.253"],
+ "acl": {
+  "enabled": true,
+  "default_policy": "deny",
+  "enable_token_persistence": true,
+  "tokens": {
+   "default": "anonymous",
+   "agent": "4362885c-f9c7-47b8-88be-726beba96168",
+   "initial_management": "4362885c-f9c7-47b8-88be-726beba96168"
+  }
+ }
+}
+
+
+
+{
+  "node_name": "db01",
+  "bind_addr": "192.168.170.101",
+  "server": false,
+  "datacenter": "gib",
+  "data_dir": "/var/lib/consul",
+  "encrypt": "noE1o6Skr8XQIGLTIPf3VxBxlFqRy2HoMm9X3dZkOSQ=",
+  "log_level": "INFO",
+  "enable_syslog": true,
+  "rejoin_after_leave": true,
+  "retry_join": ["192.168.170.251", "192.168.170.252", "192.168.170.253"]
+}
